@@ -1,5 +1,7 @@
 package knn.datastructures;
 
+import knn.datastructures.exceptions.InvalidVectorOperation;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,10 +19,10 @@ public final class IntegerVector {
             this.vectors = Arrays.asList(vectors);
         }
 
-        private static void validateFor(IntegerVector... vectors) throws Exception {
+        private static void validateFor(IntegerVector... vectors) throws InvalidVectorOperation {
             OperationValidator validator = new OperationValidator(vectors);
             if (!validator.isValid()) {
-                throw new Exception("Vectors have different sizes");
+                throw new InvalidVectorOperation("Vectors have different sizes", vectors);
             }
         }
 
@@ -42,7 +44,7 @@ public final class IntegerVector {
         this.components = components;
     }
 
-    IntegerVector plus(IntegerVector another) throws Exception {
+    IntegerVector plus(IntegerVector another) throws InvalidVectorOperation {
         OperationValidator.validateFor(this, another);
         return new IntegerVector(IntStream.range(0, components.size())
                 .mapToObj(i -> components.get(i) + another.components.get(i))
@@ -51,7 +53,7 @@ public final class IntegerVector {
 
     }
 
-    double distanceTo(IntegerVector another) throws Exception {
+    double distanceTo(IntegerVector another) throws InvalidVectorOperation {
         OperationValidator.validateFor(this, another);
         return Math.sqrt(IntStream.range(0, components.size())
                 .mapToObj(i -> Math.pow(components.get(i) - another.components.get(i), 2))
@@ -71,7 +73,12 @@ public final class IntegerVector {
         if (!(another instanceof IntegerVector)) {
             return false;
         }
+
         IntegerVector anotherVector = ((IntegerVector) another);
+        OperationValidator validator = new OperationValidator(this, anotherVector);
+        if (!validator.isValid()) {
+            return false;
+        }
 
         return IntStream.range(0, components.size())
                 .allMatch(i -> components.get(i).equals(anotherVector.components.get(i)));
