@@ -2,39 +2,37 @@ package knn.datastructures;
 
 import knn.datastructures.exceptions.InvalidVectorOperation;
 import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.List;
-import java.util.function.IntFunction;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static java.util.Comparator.comparingDouble;
 
-public class VectorSpace
+class VectorSpace
 {
-    private final List<IntegerVector> vectors;
+    private final Stream<ImmutablePair<Integer, IntegerVector>> vectors;
 
-    public VectorSpace(List<IntegerVector> vectors) {
-        this.vectors = vectors;
+    VectorSpace(List<IntegerVector> vectors) {
+
+        this.vectors = IntStream.range(0, vectors.size()).mapToObj(i -> new ImmutablePair<>(i, vectors.get(i)));
     }
 
-    ImmutablePair<Integer, IntegerVector> findClosest(IntegerVector vector) {
-        int minimum = IntStream.range(0, vectors.size())
-                .mapToObj(distance(vector))
-                .min(comparingDouble(ImmutablePair::getValue))
-                .map(ImmutablePair::getKey)
+    int findClosest(IntegerVector vectorToTest) {
+        return vectors
+                .min(comparingDouble(v -> distanceBetween(vectorToTest, v)))
+                .filter(f -> f.getValue().length() == vectorToTest.length())
+                .map(Pair::getKey)
                 .orElse(-1);
-        ;
-        return new ImmutablePair<>(minimum, vectors.get(minimum));
-
     }
 
-    private IntFunction<ImmutablePair<Integer, Double>> distance(IntegerVector vector) {
-        return i -> {
-            try {
-                return new ImmutablePair<>(i, vectors.get(i).distanceTo(vector));
-            } catch (InvalidVectorOperation invalidVectorOperation) {
-                return new ImmutablePair<>(-1, Double.MAX_VALUE);
-            }
-        };
+    private Double distanceBetween(IntegerVector toTest, ImmutablePair<Integer, IntegerVector> current) {
+        try {
+            return current.getValue().distanceTo(toTest);
+        } catch (InvalidVectorOperation invalidVectorOperation) {
+            return Double.MAX_VALUE;
+        }
     }
+
 }

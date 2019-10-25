@@ -21,17 +21,17 @@ public final class IntegerVector {
 
         private static void validateFor(IntegerVector... vectors) throws InvalidVectorOperation {
             OperationValidator validator = new OperationValidator(vectors);
-            if (!validator.isValid()) {
+            if (validator.isNotValid()) {
                 throw new InvalidVectorOperation("Vectors have different sizes", vectors);
             }
         }
 
-        private boolean isValid() {
+        private boolean isNotValid() {
             if (vectors.size() == 0) {
-                return false;
+                return true;
             }
             IntegerVector initialVector = vectors.get(0);
-            return vectors.stream().allMatch(v -> v.length() == initialVector.length());
+            return !vectors.stream().allMatch(v -> v.length() == initialVector.length());
         }
 
     }
@@ -76,7 +76,7 @@ public final class IntegerVector {
 
         IntegerVector anotherVector = ((IntegerVector) another);
         OperationValidator validator = new OperationValidator(this, anotherVector);
-        if (!validator.isValid()) {
+        if (validator.isNotValid()) {
             return false;
         }
 
