@@ -23,7 +23,7 @@ class VectorSpace
         return vectors
                 .min(comparingDouble(v -> distanceBetween(vectorToTest, v)))
                 .filter(f -> f.getValue().length() == vectorToTest.length())
-                .map(Pair::getKey)
+                .map(Pair::getKey) // get the index of the vector with the minimum distance
                 .orElse(-1);
     }
 

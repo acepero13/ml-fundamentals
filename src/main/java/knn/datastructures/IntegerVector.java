@@ -74,14 +74,14 @@ public final class IntegerVector {
             return false;
         }
 
-        IntegerVector anotherVector = ((IntegerVector) another);
-        OperationValidator validator = new OperationValidator(this, anotherVector);
+        IntegerVector other = ((IntegerVector) another);
+        OperationValidator validator = new OperationValidator(this, other);
         if (validator.isNotValid()) {
             return false;
         }
 
         return IntStream.range(0, components.size())
-                .allMatch(i -> components.get(i).equals(anotherVector.components.get(i)));
+                .allMatch(i -> this.components.get(i).equals(other.components.get(i)));
 
     }
 
