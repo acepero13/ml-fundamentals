@@ -19,7 +19,7 @@ public class VectorSpace
         this.vectors = IntStream.range(0, vectors.size()).mapToObj(i -> new ImmutablePair<>(i, vectors.get(i)));
     }
 
-    public int findClosest(IntegerVector vectorToTest) {
+    public int findClosestTo(IntegerVector vectorToTest) {
         return vectors
                 .min(comparingDouble(v -> distanceBetween(vectorToTest, v)))
                 .filter(f -> f.getValue().length() == vectorToTest.length())

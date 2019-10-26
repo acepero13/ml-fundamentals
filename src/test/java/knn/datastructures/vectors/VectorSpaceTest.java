@@ -1,7 +1,5 @@
 package knn.datastructures.vectors;
 
-import knn.datastructures.vectors.IntegerVector;
-import knn.datastructures.vectors.VectorSpace;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +24,7 @@ public class VectorSpaceTest {
         VectorSpace space = new VectorSpace(vectors);
         Assert.assertEquals(
                 0,
-                space.findClosest(new IntegerVector(4, 4)));
+                space.findClosestTo(new IntegerVector(4, 4)));
 
     }
 
@@ -35,7 +33,7 @@ public class VectorSpaceTest {
         VectorSpace space = new VectorSpace(vectors);
         Assert.assertEquals(
                 1,
-                space.findClosest(new IntegerVector(9, 8)));
+                space.findClosestTo(new IntegerVector(9, 8)));
 
     }
 
@@ -44,7 +42,7 @@ public class VectorSpaceTest {
         VectorSpace space = new VectorSpace(vectors);
         Assert.assertEquals(
                 -1,
-                space.findClosest(new IntegerVector(4, 4, 5)));
+                space.findClosestTo(new IntegerVector(4, 4, 5)));
 
     }
 

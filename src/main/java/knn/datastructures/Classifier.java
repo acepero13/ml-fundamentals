@@ -4,6 +4,7 @@ import knn.datastructures.vectors.IntegerVector;
 import knn.datastructures.vectors.VectorSpace;
 
 import java.util.List;
+import java.util.Optional;
 
 public class Classifier {
     private final VectorSpace vectorSpace;
@@ -14,12 +15,12 @@ public class Classifier {
         this.labels = labels;
     }
 
-    public String classify(IntegerVector test) throws Exception {
-        int indexOfClosestVector = vectorSpace.findClosest(test);
+    public Optional<String> classify(IntegerVector test) {
+        int indexOfClosestVector = vectorSpace.findClosestTo(test);
         if (isInvalidIndex(indexOfClosestVector)) {
-            throw new Exception("Could not classify element");
+            return Optional.empty();
         }
-        return labels.get(indexOfClosestVector);
+        return Optional.of(labels.get(indexOfClosestVector));
     }
 
     private boolean isInvalidIndex(int indexOfClosestVector) {
