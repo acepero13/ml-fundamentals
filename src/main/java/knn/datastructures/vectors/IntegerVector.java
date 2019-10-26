@@ -36,7 +36,7 @@ public final class IntegerVector {
 
     }
 
-    IntegerVector(Integer... components) {
+    public IntegerVector(Integer... components) {
         this.components = Arrays.asList(components);
     }
 

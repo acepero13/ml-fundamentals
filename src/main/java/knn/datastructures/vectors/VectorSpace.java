@@ -10,16 +10,16 @@ import java.util.stream.Stream;
 
 import static java.util.Comparator.comparingDouble;
 
-class VectorSpace
+public class VectorSpace
 {
     private final Stream<ImmutablePair<Integer, IntegerVector>> vectors;
 
-    VectorSpace(List<IntegerVector> vectors) {
+    public VectorSpace(List<IntegerVector> vectors) {
 
         this.vectors = IntStream.range(0, vectors.size()).mapToObj(i -> new ImmutablePair<>(i, vectors.get(i)));
     }
 
-    int findClosest(IntegerVector vectorToTest) {
+    public int findClosest(IntegerVector vectorToTest) {
         return vectors
                 .min(comparingDouble(v -> distanceBetween(vectorToTest, v)))
                 .filter(f -> f.getValue().length() == vectorToTest.length())
