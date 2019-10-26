@@ -1,6 +1,7 @@
-package knn.datastructures;
+package knn.datastructures.vectors;
 
 import knn.datastructures.exceptions.InvalidVectorOperation;
+import knn.datastructures.vectors.IntegerVector;
 import org.junit.Assert;
 import org.junit.Test;
 

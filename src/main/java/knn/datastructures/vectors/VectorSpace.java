@@ -1,4 +1,4 @@
-package knn.datastructures;
+package knn.datastructures.vectors;
 
 import knn.datastructures.exceptions.InvalidVectorOperation;
 import org.apache.commons.lang3.tuple.ImmutablePair;

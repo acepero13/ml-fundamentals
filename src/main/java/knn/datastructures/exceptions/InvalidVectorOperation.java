@@ -1,6 +1,6 @@
 package knn.datastructures.exceptions;
 
-import knn.datastructures.IntegerVector;
+import knn.datastructures.vectors.IntegerVector;
 
 import java.util.Arrays;
 

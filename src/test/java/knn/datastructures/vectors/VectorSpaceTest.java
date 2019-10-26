@@ -1,5 +1,7 @@
-package knn.datastructures;
+package knn.datastructures.vectors;
 
+import knn.datastructures.vectors.IntegerVector;
+import knn.datastructures.vectors.VectorSpace;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
